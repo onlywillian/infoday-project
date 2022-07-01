@@ -1,12 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import FooterView from './components/FooterView';
+import SpriteView from './components/SpriteView';
+import TopIconView from './components/TopIconView';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Open up App.js to start working on your app!</Text>
-
+      <TopIconView />
+      <SpriteView />
       <FooterView />
     </View>
   );
@@ -14,8 +16,10 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
-    marginTop: 150,
+    justifyContent: 'center',
+    // alignItems: 'center',
+    height: '100%',
+    marginTop: 60,
   }
 });

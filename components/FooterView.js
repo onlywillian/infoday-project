@@ -1,18 +1,27 @@
 import { StyleSheet, Text, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+
+import Button from './Button';
 
 export default function FooterView() {
     return (
         <View style={styles.footer}>
-            <View style={styles.back}>
-                <Icon name="sports-esports" size={30} color="white"/>
+            <Button iconName='sports-esports' />
+
+            <View style={
+                {
+                    // flex: 2,
+                    width: '50%', 
+                    backgroundColor: 'black', 
+                    height: 50,
+                    borderRadius: 10,
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }
+                }>
+                <Text style={{color: 'white'}}>Nome</Text>
             </View>
-            <View style={styles.back}>
-                <Text style={{color: 'white'}}>ASDsad</Text>
-            </View>
-            <View style={styles.back}>
-                <Icon name="shopping-basket" size={30} color="white"/>
-            </View>
+
+            <Button iconName='shopping-cart'/>
         </View>
     )
 };
@@ -22,14 +31,5 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-around'
-    },
-
-    back: {
-        backgroundColor: 'black',
-        width: 50,
-        height: 50,
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
     }
 });
