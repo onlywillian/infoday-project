@@ -1,25 +1,18 @@
-import { StyleSheet, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import FooterView from './components/FooterView';
-import SpriteView from './components/SpriteView';
-import TopIconView from './components/TopIconView';
+import MainScreen from './screens/MainScreen';
+import InvenctoryScreen from './screens/InvenctoryScreen';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <TopIconView />
-      <SpriteView />
-      <FooterView />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Home'>
+        <Stack.Screen name='Home' component={MainScreen} options={{ headerShown: false, statusBarStyle: 'dark' }}/>
+        <Stack.Screen name='Invenctory' component={InvenctoryScreen} options={{ headerShown: false, statusBarStyle: 'dark' }}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    // alignItems: 'center',
-    height: '100%',
-    marginTop: 60,
-  }
-});

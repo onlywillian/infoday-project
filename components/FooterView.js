@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-import Button from './Button';
+import Button from './ButtonView';
 
-export default function FooterView() {
+export default function FooterView({ navigation }) {
     return (
         <View style={styles.footer}>
             <Button iconName='sports-esports' />
@@ -30,6 +30,8 @@ const styles = StyleSheet.create({
     footer: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        alignItems: 'flex-end',
+        justifyContent: 'space-around',
+        marginBottom: 20,
     }
 });
