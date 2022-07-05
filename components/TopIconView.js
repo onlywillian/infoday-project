@@ -4,7 +4,7 @@ import Button from './ButtonView';
 
 export default function TopIconView({ navigation }) {
     const handlePressTopIcon = () => {
-        return navigation.navigate('Invenctory')
+        return navigation.navigate('Invenctory');
     }
 
     return (
