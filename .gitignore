@@ -9,6 +9,6 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-
+Backend/conection/serviceAccountKey.json
 # macOS
 .DS_Store
