@@ -8,7 +8,7 @@ export default function InvenctoryScreen() {
     const [ value, setValue ] = useState('');
 
     const handleButtonClick = () => {
-        fetch('https://mywebsite.com/endpoint/', {
+        fetch('https://localhost:3003/usuarios', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
