@@ -3,13 +3,20 @@ import { StyleSheet, Text, View } from 'react-native';
 import Button from './ButtonView';
 
 export default function FooterView({ navigation }) {
+    const handleShopIconClick = () => {
+        return navigation.navigate('Shop');
+    }
+
+    const handleGameIconClick = () => {
+        return navigation.navigate('Game');
+    }
+
     return (
         <View style={styles.footer}>
-            <Button iconName='sports-esports' />
+            <Button iconName='sports-esports' press={handleGameIconClick}/>
 
             <View style={
                 {
-                    // flex: 2,
                     width: '50%', 
                     backgroundColor: 'black', 
                     height: 50,
@@ -21,7 +28,7 @@ export default function FooterView({ navigation }) {
                 <Text style={{color: 'white'}}>Nome</Text>
             </View>
 
-            <Button iconName='shopping-cart'/>
+            <Button iconName='shopping-cart' press={handleShopIconClick}/>
         </View>
     )
 };

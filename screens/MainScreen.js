@@ -9,7 +9,7 @@ export default function MainScreen({ navigation }) {
     <View style={styles.container}>
       <TopIconView navigation={ navigation }/>
       <SpriteView />
-      <FooterView />
+      <FooterView navigation={ navigation }/>
     </View>
   );
 }
