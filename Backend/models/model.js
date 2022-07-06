@@ -27,7 +27,10 @@ const data = {
         money: null
     }
 }
-const name = "Giel"
+
+
+
+const name = "Gabriel"
 const User = (async function(){
    const nomes = await db.where('nome', '==', name).get()
 
@@ -40,3 +43,5 @@ const User = (async function(){
    }
 
 })()
+
+
