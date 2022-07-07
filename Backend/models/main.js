@@ -13,9 +13,8 @@ app.get('/', (req, res)=>{
        snapshot.forEach((doc)=>{
           res.send({data: doc.data()})
        })
-   })
-
-})
+   });
+});
 
 app.post('/usuarios',(req, res)=>{
         const nome = req.body.name
@@ -30,8 +29,8 @@ app.post('/usuarios',(req, res)=>{
                console.log("DOCUMENT HAVE BEEN EXISTS")  
             }
         }
-        set()
-})
+        set();
+});
 
 app.listen(3003, ()=>{
  console.log("CONEXAO BEM SUCEDIDA")
