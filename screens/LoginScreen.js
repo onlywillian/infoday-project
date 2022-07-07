@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { SafeAreaView, StyleSheet, TextInput, Button } from 'react-native';
-
 import loginImage from '../assets/screen/login.png';
 
 export default function InvenctoryScreen() {
     const [ value, setValue ] = useState('');
 
     const handleButtonClick = () => {
-        fetch('https://localhost:3003/usuarios', {
+        fetch('http://10.0.0.6:3001/usuarios', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',

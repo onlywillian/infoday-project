@@ -29,6 +29,7 @@ const data = {
 }
 
 
+<<<<<<< HEAD:Backend/models/model.js
 
 const name = "Gabriel"
 const User = (async function(){
@@ -43,3 +44,6 @@ const User = (async function(){
    }
 
 })()
+=======
+module.exports = db
+>>>>>>> 69f992d0f3d8b71c9dff0abda46ec894be51d45f:Backend/models/data.js
