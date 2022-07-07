@@ -7,7 +7,7 @@ export default function InvenctoryScreen() {
     const [ value, setValue ] = useState('');
 
     const handleButtonClick = () => {
-        fetch('http://localhost:3001/usuarios', {
+        fetch('http://10.0.0.6:3001/usuarios', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
