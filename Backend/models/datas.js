@@ -43,7 +43,5 @@ const User = (async function(){
       console.log("DOCUMENT HAVE BEEN EXISTS")
    }
 
-})()
-=======
 module.exports = db
->>>>>>> 69f992d0f3d8b71c9dff0abda46ec894be51d45f:Backend/models/data.js
+

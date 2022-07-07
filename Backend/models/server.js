@@ -2,8 +2,8 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const  db = require('./data')
-const { doc, add } = require('./data')
+const  db = require('./datas')
+const { doc, add } = require('./datas')
 
 const data = {
     nome: '',
