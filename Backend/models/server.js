@@ -43,7 +43,7 @@ app.get("/", (req, res)=>{
         res.send(doc.data())
     })
    })
-
+   
 })
 
 app.post('/usuarios', (req, res)=>{
