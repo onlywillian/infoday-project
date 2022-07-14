@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { SafeAreaView, StyleSheet, TextInput, Button } from 'react-native';
-import loginImage from '../assets/screen/login.png';
+import { SafeAreaView, StyleSheet, TextInput, Button, View, Text } from 'react-native';
 
 export default function InvenctoryScreen() {
     const [ value, setValue ] = useState('');
@@ -19,24 +18,56 @@ export default function InvenctoryScreen() {
     }
 
     return (
-        <SafeAreaView>
-            <TextInput value={value} onChangeText={setValue} maxLength={20} style={styles.input}/>
-            <Button title='Go'onPress={handleButtonClick} />
-        </SafeAreaView>
+        <View style={styles.container}>
+            <View style={styles.inputContainer}>
+                <View style={styles.avatar}>
+                    <Text style={{color: 'white'}}>Avatar</Text>
+                </View>
+                <SafeAreaView>
+                    <TextInput 
+                        value={value} 
+                        onChangeText={setValue} 
+                        maxLength={20} 
+                        style={styles.input} 
+                        placeholder="insira seu nome"
+                    />
+                    <Button title='Escolher' onPress={handleButtonClick} />
+                </SafeAreaView>
+            </View>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        height: '100%'
-    },
-    image: {
+        flex: 1,
         height: '100%',
-        width: '100%',
-        transform: [{ scale: 1.4 }],
+        alignItems: 'center',
+        justifyContent: 'center',
+        
+    },
+    avatar: {
+        // flex: 1,
+        backgroundColor: 'blue',
+        borderRadius: 100,
+        height: 120,
+        width: 120,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 25,
+        
+    },
+    inputContainer: {
+        // flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 5,
+        padding: 50,
+        borderColor: 'blue',
     },
     input: {
         height: 40,
+        width: 220,
         margin: 12,
         borderWidth: 1,
         padding: 10,
