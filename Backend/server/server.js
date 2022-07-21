@@ -11,7 +11,7 @@ app.use(cors())
 
 // ------------- VALIDAÇÃO DE USUARIOS (CREATE)-------------------------
 app.post('/usuarios', async (req, res)=>{
-    const nome = req.body.name    
+    const nome = req.body.name
     data.nome = nome
 
     if(nome){
