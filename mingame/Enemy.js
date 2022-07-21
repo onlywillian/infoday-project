@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 
-function Nave(x, y, w, h, color) {   
+function Enemy(x, y, w, h, color) {   
     return (
       <View
         style={{
@@ -10,10 +10,9 @@ function Nave(x, y, w, h, color) {
             top: y,
             width: w,
             height: h,
-            backgroundColor: color || "pink",
-            borderWidth: 5,
+            backgroundColor: color || "pink"
           }}/>
     );
 }
 
-export default Nave;
+export default Enemy;

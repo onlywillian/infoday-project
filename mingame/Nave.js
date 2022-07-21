@@ -1,4 +1,3 @@
-
 import React from "react";
 import { View } from "react-native";
 
@@ -12,7 +11,9 @@ function Nave(x, y, w, h, color) {
             width: w,
             height: h,
             backgroundColor: color || "pink"
-          }}/>
+          }}
+          nativeID="nave"
+          />
     );
 }
 
