@@ -15,7 +15,7 @@ app.post('/usuarios', async (req, res)=>{
     data.nome = nome
 
     if(nome){
-        const ValidName = await db.where("nome", "==", nome).get()
+        const ValidName = await db.where("nome", "==",nome).get()
         if(ValidName.empty){
             const uss = await db.add(data)
             console.log("Usuario criado")
@@ -30,7 +30,7 @@ app.post('/usuarios', async (req, res)=>{
 /* ------------------------    (GET)  API DOS USUARIOS    -------------------------- */
 app.get('/usuarios/:user', async (req, res)=>{
     const nome = req.params.user
-    const search = await db.where("nome", "==", nome).get()
+    const search = await db.where("nome", "==",nome).get()
 
     if(!search.empty){    
         search.forEach(doc => {
