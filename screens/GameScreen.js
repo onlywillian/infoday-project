@@ -3,20 +3,62 @@ import { GameEngine } from "react-native-game-engine";
 import { StyleSheet, StatusBar, Dimensions, View, TouchableOpacity } from 'react-native';
 
 import Nave from '../mingame/Nave';
+import Enemy from "../mingame/Enemy";
+import Bullet from '../mingame/Bullet';
 
-var Bodies = Matter.Bodies;
+var Bodies = Matter.Bodies,
+    Collision = Matter.Collision,
+    Detector = Matter.Detector;
+
+var newDetector = Detector.create();
 
 const { width, height } = Dimensions.get("window");
 
 const boxSize = Math.trunc(Math.max(width, height) * 0.05); // pegando um tamanho base
 
-const initialBox = Bodies.rectangle(width / 2 - boxSize, height / 2, boxSize, boxSize, { label: "box" }); // Criando a caixa base
-const enemyBox = Bodies.rectangle(width / 2 - boxSize, 0, boxSize, boxSize);
+const naveBody = Bodies.rectangle(width / 2, height / 5 + height / 2, boxSize, boxSize, { label: "box" }); // Criando a caixa bas
+const enemyBox = Bodies.rectangle(width / 2, 0, boxSize, boxSize, { label: "enemy" });
+
+// Config
 
 const moves = {
     left: false,
     right: false
 }
+
+var isSpawnEnemy = false,
+    isGameStarted = false,
+    isMovingEnemy = false,
+    isFiring = false,
+    isEnemyPassed = false,
+    isGameOver = false;
+
+var speedEnemyValue = 5;
+var speedBulletValue = 20;
+
+// Events activation
+
+setInterval(() => {
+    if (!isSpawnEnemy) isSpawnEnemy = true;
+
+    setTimeout(() => {
+        isSpawnEnemy = false;
+    }, 5);
+}, 2000);
+
+setInterval(() => {
+    if (!isMovingEnemy) isMovingEnemy = true;
+
+    setTimeout(() => {
+        isMovingEnemy = false;
+    }, 5);
+}, 50);
+
+// setInterval(() => {
+//     speedValue = speedValue + 5;
+// }, 10000);
+
+// Events
 
 const handleTouchLeft = entities => {
     if (moves.left) {
@@ -38,19 +80,108 @@ const handleTouchRight = entities => {
     return entities;
 }
 
-var boxIds = 0;
+var entitiesIds = 0;
 
-const invocarInimigo = (entities, { touches }) => {
-    touches.filter(t => t.type === "press").forEach(t => {   
-        let randomXPosition = Math.round(Math.random(10) * width);
+const handleEnemiesSpawn = entities => {
+    if(isSpawnEnemy) {
+        let randomXPosition = Math.round(Math.random(10) * (width - boxSize));
 
-        entities[++boxIds] = {
+        let enemyBox = Bodies.rectangle(width / 2, 0, boxSize, boxSize, { label: "enemy" });
+
+        entities[++entitiesIds] = {
             body: enemyBox, 
             size: [boxSize, boxSize], 
             color: 'orange',
-            renderer: props => Nave(randomXPosition, 0, props.size[0], props.size[1], props.color)
+            renderer: props => Enemy(randomXPosition, props.body.position.y, props.size[0], props.size[1], props.color)
         }
+    }
+
+    return entities;
+}
+
+const handleEnemiesMove = entities => {
+    let size = Object.keys(entities);
+
+    if (isMovingEnemy) {
+        size.map(key => {
+            if (entities[key].body.label == "enemy") entities[key].body.position.y += speedEnemyValue;
+        });
+    }
+
+    size.map(key => {
+        if (entities[key].body.label == "bullet") entities[key].body.position.y -= speedBulletValue;
     });
+    
+    return entities;
+}
+
+
+const handleNaveShoot = entities => {
+    if (isFiring) {
+        let Bullet = Bodies.rectangle(entities.nave.body.position.x, entities.nave.body.position.y, boxSize, boxSize, { label: "bullet" });
+
+        entities[++entitiesIds] = {
+            body: Bullet, 
+            size: [boxSize / 2, boxSize / 2], 
+            color: 'black',
+            renderer: props => Nave(props.body.position.x, props.body.position.y, props.size[0], props.size[1], props.color)
+        }
+    }
+    
+    isFiring = false;
+
+    return entities;
+}
+
+const handleCollisions = entities => {
+    let bullets = [];
+    let allEntities = Object.keys(entities);
+
+    allEntities.forEach(key => {
+        if (entities[key].body.label == 'bullet') {
+            bullets.push(entities[key].body);
+        }
+    })
+
+    return entities;
+}
+
+const handleLimits = entities => {
+    // Limites do player
+    let player = entities.nave;
+    let leftSide = player.body.position.x;
+    let rightSide = player.body.position.x + boxSize;
+
+    if (rightSide >= width) {
+        player.body.position.x = width - boxSize;
+    } else if (leftSide <= 0) {
+        player.body.position.x = 0;
+    }
+
+    // Limites dos inimigos
+    let allEntities = Object.keys(entities);
+
+    allEntities.forEach(key => {
+        let enemy = entities[key];
+
+        if (enemy.body.label == 'enemy') {
+            if (enemy.body.position.y >= height) {
+                isEnemyPassed = true; // Ativando a flag para retirar as vidas
+                delete entities[key]; // Deletando o inimigo
+            }
+        }
+    })
+
+    //Limites das balas
+    allEntities.forEach(key => {
+        let bullet = entities[key];
+
+        if (bullet.body.label == 'bullet') {
+            if (bullet.body.position.y <= 0) {
+                delete entities[key]; // Deletando o inimigo
+            }
+        }
+    })
 
     return entities;
 }
@@ -63,11 +194,15 @@ export default function GameScreen() {
                 systems={[
                     handleTouchLeft, 
                     handleTouchRight, 
-                    invocarInimigo
+                    handleEnemiesSpawn,
+                    handleEnemiesMove,
+                    handleNaveShoot,
+                    handleCollisions,
+                    handleLimits,
                 ]}
                 entities={{ 
                     nave: { 
-                        body: initialBox, 
+                        body: naveBody, 
                         size: [boxSize, boxSize], 
                         color: 'red', 
                         renderer: (props) => Nave(props.body.position.x, props.body.position.y, props.size[0], props.size[1], props.color)
@@ -76,7 +211,7 @@ export default function GameScreen() {
                         body: enemyBox, 
                         size: [boxSize, boxSize], 
                         color: 'orange',
-                        renderer: (props) => Nave(props.body.position.x, props.body.position.y, props.size[0], props.size[1], props.color)
+                        renderer: props => Enemy(props.body.position.x, props.body.position.y, props.size[0], props.size[1], props.color)
                     }
                 }}
             >
@@ -87,13 +222,13 @@ export default function GameScreen() {
 
             <View style={styles.box}>
                 <TouchableOpacity onPress={() => moves.left = true}>
-                    <View style={{backgroundColor: 'blue', width: 50, height: 50}}></View>
+                    <View style={{backgroundColor: 'blue', width: 50, height: 50}} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => moves.right = true}>
-                    <View style={{backgroundColor: 'blue', width: 50, height: 50, marginRight: 100}}></View>
+                    <View style={{backgroundColor: 'blue', width: 50, height: 50, marginRight: 100}} />
                 </TouchableOpacity>
-                <TouchableOpacity>
-                    <View style={{backgroundColor: 'red', width: 50, height: 50}}></View>
+                <TouchableOpacity onPress={() => isFiring = true}>
+                    <View style={{backgroundColor: 'red', width: 50, height: 50}} />
                 </TouchableOpacity>
             </View>
         </View>
