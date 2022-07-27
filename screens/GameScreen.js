@@ -6,11 +6,7 @@ import Nave from '../mingame/Nave';
 import Enemy from "../mingame/Enemy";
 import Bullet from '../mingame/Bullet';
 
-var Bodies = Matter.Bodies,
-    Collision = Matter.Collision,
-    Detector = Matter.Detector;
-
-var newDetector = Detector.create();
+var Bodies = Matter.Bodies;
 
 const { width, height } = Dimensions.get("window");
 
@@ -118,13 +114,13 @@ const handleEnemiesMove = entities => {
 
 const handleNaveShoot = entities => {
     if (isFiring) {
-        let Bullet = Bodies.rectangle(entities.nave.body.position.x, entities.nave.body.position.y, boxSize, boxSize, { label: "bullet" });
+        let bullet = Bodies.rectangle(entities.nave.body.position.x, entities.nave.body.position.y, boxSize, boxSize, { label: "bullet" });
 
         entities[++entitiesIds] = {
-            body: Bullet, 
+            body: bullet, 
             size: [boxSize / 2, boxSize / 2], 
             color: 'black',
-            renderer: props => Nave(props.body.position.x, props.body.position.y, props.size[0], props.size[1], props.color)
+            renderer: props => Bullet(props.body.position.x, props.body.position.y, props.size[0], props.size[1], props.color)
         }
     }
     
@@ -134,14 +130,36 @@ const handleNaveShoot = entities => {
 }
 
 const handleCollisions = entities => {
+    // Collisions config
     let bullets = [];
+    let enemys = [];
     let allEntities = Object.keys(entities);
-
+    let player = entities.nave;
+    
     allEntities.forEach(key => {
-        if (entities[key].body.label == 'bullet') {
-            bullets.push(entities[key].body);
+        let e = entities[key];
+
+        if (e.body.label == 'bullet') {
+            bullets.push(e);
+        } else if (e.body.label == 'enemy') {
+            enemys.push(e);
         }
-    })
+    });
+
+    if (bullets == []) return entities;
+
+    for (let i = 0; i < bullets.length; i++) {
+        for (let j = 0; j < enemys.length; j++) {
+            if (
+                bullets[i].body.position.x < enemys[j].body.position.x + enemys[j].size[0] &&
+                bullets[i].body.position.x + bullets.size[0] > enemys[j].body.position.x &&
+                bullets[i].body.position.y < enemys[j].body.position.y + enemys[j].size[0] &&
+                bullets[i].body.position.y + bullets.size[0] > enemys[j].body.position.y
+                ) {
+                delete enemys[j];
+            }
+        }
+    }
 
     return entities;
 }
@@ -162,22 +180,13 @@ const handleLimits = entities => {
     let allEntities = Object.keys(entities);
 
     allEntities.forEach(key => {
-        let enemy = entities[key];
-
-        if (enemy.body.label == 'enemy') {
-            if (enemy.body.position.y >= height) {
+        if (entities[key].body.label == 'enemy') {
+            if (entities[key].body.position.y >= height) {
                 isEnemyPassed = true; // Ativando a flag para retirar as vidas
                 delete entities[key]; // Deletando o inimigo
             }
-        }
-    })
-
-    //Limites das balas
-    allEntities.forEach(key => {
-        let bullet = entities[key];
-
-        if (bullet.body.label == 'bullet') {
-            if (bullet.body.position.y <= 0) {
+        } else if (entities[key].body.label == 'bullet') {
+            if (entities[key].body.position.y <= 0) {
                 delete entities[key]; // Deletando o inimigo
             }
         }
@@ -198,7 +207,7 @@ export default function GameScreen() {
                     handleEnemiesMove,
                     handleNaveShoot,
                     handleCollisions,
-                    handleLimits,
+                    // handleLimits,
                 ]}
                 entities={{ 
                     nave: { 
