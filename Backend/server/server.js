@@ -4,6 +4,7 @@ const app = express()
 const cors = require('cors')
 const  {db, data} = require('./datas')
 const { doc, add, id } = require('./datas')
+const Router = require('./routers/quiz')
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
@@ -64,6 +65,8 @@ app.put('/usuarios/update/:idUser', async (req, res)=>{
    }
 
 })
+
+app.use('/quiz', Router)
 
 app.listen(3001, ()=>{
     console.log("CONEXAO ESTABELECIDA")
