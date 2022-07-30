@@ -1,4 +1,7 @@
-import { View, Text } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
+
+import skin from '../assets/player_skins/base_masculino.png';
+
 
 export default function SpriteView() {
     return (
@@ -9,7 +12,14 @@ export default function SpriteView() {
                 justifyContent: 'center',
             }
             }>
-            <Text>Sprite Personagem</Text>
+            <Image style={styles.image} source={skin} />
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    image: {
+        height: '80%',
+        width: '70%',
+    }
+});

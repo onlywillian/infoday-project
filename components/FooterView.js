@@ -7,13 +7,13 @@ export default function FooterView({ navigation }) {
         return navigation.navigate('Shop');
     }
 
-    const handleGameIconClick = () => {
-        return navigation.navigate('Game');
+    const handleTranferIconClick = () => {
+        return navigation.navigate('Transfer');
     }
 
     return (
         <View style={styles.footer}>
-            <Button iconName='sports-esports' press={handleGameIconClick}/>
+            <Button iconName='sports-esports' press={handleTranferIconClick}/>
 
             <View style={
                 {
