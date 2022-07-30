@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { SafeAreaView, StyleSheet, TextInput, Button, View, Text, Image } from 'react-native';
 
-import skin from '../assets/player_skins/base_masculino.png';
-
 export default function InvenctoryScreen() {
     const [ value, setValue ] = useState('');
 
@@ -23,7 +21,7 @@ export default function InvenctoryScreen() {
         <View style={styles.container}>
             <View style={styles.inputContainer}>
                 <View style={styles.avatar}>
-                    <Image source={skin} />
+                    <Text style={{color: 'white'}}>Avatar</Text>
                 </View>
                 <SafeAreaView>
                     <TextInput 

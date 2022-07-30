@@ -1,6 +1,6 @@
 import Matter from "matter-js";
 import { GameEngine } from "react-native-game-engine";
-import { StyleSheet, StatusBar, Dimensions, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, StatusBar, Dimensions, View, TouchableOpacity, Alert } from 'react-native';
 
 import Nave from '../mingame/Nave';
 import Enemy from "../mingame/Enemy";
@@ -13,7 +13,6 @@ const { width, height } = Dimensions.get("window");
 const boxSize = Math.trunc(Math.max(width, height) * 0.05); // pegando um tamanho base
 
 const naveBody = Bodies.rectangle(width / 2, height / 5 + height / 2, boxSize, boxSize, { label: "box" }); // Criando a caixa bas
-const enemyBox = Bodies.rectangle(width / 2, 0, boxSize, boxSize, { label: "enemy" });
 
 // Config
 
@@ -31,6 +30,11 @@ var isSpawnEnemy = false,
 
 var speedEnemyValue = 5;
 var speedBulletValue = 20;
+
+var lifes = 3;
+
+var bullets = [],
+    enemys = [];
 
 // Events activation
 
@@ -51,7 +55,7 @@ setInterval(() => {
 }, 50);
 
 // setInterval(() => {
-//     speedValue = speedValue + 5;
+//     speedValue = speedEnemyValue += 5;
 // }, 10000);
 
 // Events
@@ -82,14 +86,16 @@ const handleEnemiesSpawn = entities => {
     if(isSpawnEnemy) {
         let randomXPosition = Math.round(Math.random(10) * (width - boxSize));
 
-        let enemyBox = Bodies.rectangle(width / 2, 0, boxSize, boxSize, { label: "enemy" });
+        let enemyBox = Bodies.rectangle(randomXPosition, 0, boxSize, boxSize, { label: "enemy" });
 
         entities[++entitiesIds] = {
             body: enemyBox, 
             size: [boxSize, boxSize], 
             color: 'orange',
-            renderer: props => Enemy(randomXPosition, props.body.position.y, props.size[0], props.size[1], props.color)
+            renderer: props => Enemy(props.body.position.x, props.body.position.y, props.size[0], props.size[1], props.color)
         }
+
+        enemys.push(entities[entitiesIds]);
     }
 
     return entities;
@@ -122,6 +128,8 @@ const handleNaveShoot = entities => {
             color: 'black',
             renderer: props => Bullet(props.body.position.x, props.body.position.y, props.size[0], props.size[1], props.color)
         }
+
+        bullets.push(entities[entitiesIds]);
     }
     
     isFiring = false;
@@ -131,32 +139,35 @@ const handleNaveShoot = entities => {
 
 const handleCollisions = entities => {
     // Collisions config
-    let bullets = [];
-    let enemys = [];
     let allEntities = Object.keys(entities);
-    let player = entities.nave;
-    
-    allEntities.forEach(key => {
-        let e = entities[key];
+    let player = entities.nave.body;
 
-        if (e.body.label == 'bullet') {
-            bullets.push(e);
-        } else if (e.body.label == 'enemy') {
-            enemys.push(e);
+    allEntities.forEach(e => {
+        if (entities[e].body.label == 'enemy') {
+            if (player.position.x < entities[e].body.position.x + boxSize &&
+                player.position.x + boxSize > entities[e].body.position.x &&
+                player.position.y < entities[e].body.position.y + boxSize &&
+                player.position.y + boxSize > entities[e].body.position.y) {
+                    delete entities[e];
+            }
+
         }
     });
 
-    if (bullets == []) return entities;
-
-    for (let i = 0; i < bullets.length; i++) {
-        for (let j = 0; j < enemys.length; j++) {
-            if (
-                bullets[i].body.position.x < enemys[j].body.position.x + enemys[j].size[0] &&
-                bullets[i].body.position.x + bullets.size[0] > enemys[j].body.position.x &&
-                bullets[i].body.position.y < enemys[j].body.position.y + enemys[j].size[0] &&
-                bullets[i].body.position.y + bullets.size[0] > enemys[j].body.position.y
-                ) {
-                delete enemys[j];
+    // bullet and enemy collision
+    if (bullets.length != 0 && enemys.length != 0) {
+        for (let i = 0; i < bullets.length; i++) {
+            for (let j = 0; j < enemys.length; j++) {
+                console.log(j);
+                if (bullets[i].body.position.x < enemys[j].body.position.x + boxSize &&
+                    bullets[i].body.position.x + boxSize > enemys[j].body.position.x &&
+                    bullets[i].body.position.y < enemys[j].body.position.y + boxSize &&
+                    bullets[i].body.position.y + boxSize > enemys[j].body.position.y) {
+                        delete bullets[i];
+                        delete enemys[j];
+                        
+                        return entities;
+                }
             }
         }
     }
@@ -207,7 +218,7 @@ export default function GameScreen() {
                     handleEnemiesMove,
                     handleNaveShoot,
                     handleCollisions,
-                    // handleLimits,
+                    handleLimits,
                 ]}
                 entities={{ 
                     nave: { 
@@ -215,12 +226,6 @@ export default function GameScreen() {
                         size: [boxSize, boxSize], 
                         color: 'red', 
                         renderer: (props) => Nave(props.body.position.x, props.body.position.y, props.size[0], props.size[1], props.color)
-                    },
-                    enemy: {
-                        body: enemyBox, 
-                        size: [boxSize, boxSize], 
-                        color: 'orange',
-                        renderer: props => Enemy(props.body.position.x, props.body.position.y, props.size[0], props.size[1], props.color)
                     }
                 }}
             >
