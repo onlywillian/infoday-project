@@ -1,4 +1,4 @@
-const bd = require('../conection/conection.js')
+const bd = require('../../conection/conection.js')
 const db = bd.collection("Usuarios")
 
 const data = {

@@ -1,15 +1,17 @@
 const express = require('express')
 const router = express.Router()
-const bd = require('../../Quiz/data.js')
+const bd = require('../database/dataQuiz.js')
 
 router.get('/question', async (req , res)=>{
    try{
 
         let objs = []
+
         const docs = await bd.collection('Quiz').get()
         docs.forEach(element => {
             objs.push(element.data())
         });
+
         res.statusCode = 200
         res.send(objs)
 

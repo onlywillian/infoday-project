@@ -1,5 +1,5 @@
 const { response } = require('express')
-const db = require('../conection/conection')
+const db = require('../../conection/conection.js')
 
 
 const QuestionRes = [
