@@ -9,7 +9,6 @@ Router.post('/usuarios',  async (req, res)=>{
     try {
         
         const ValidName = await db.where("nome", "==",nome).get()
-
         if(ValidName.empty){   
             db.add(data).then(()=>{ 
                 res.statusCode = 201
@@ -18,7 +17,6 @@ Router.post('/usuarios',  async (req, res)=>{
                 console.log("documento criado")
             })
             .catch((err)=>{
-                
                 console.log("Erro ao criar user: "+ err)
             })
 
@@ -37,10 +35,9 @@ Router.post('/usuarios',  async (req, res)=>{
 
 Router.get('/usuarios/:user', async (req, res)=>{
     const nome = req.params.user
-    try{
 
-        const search = await db.where("nome", "==",nome).get()
-        
+    try{
+        const search = await db.where("nome", "==",nome).get() 
         if(!search.empty){    
             search.forEach(doc => {
                 res.statusCode = 200
@@ -52,7 +49,6 @@ Router.get('/usuarios/:user', async (req, res)=>{
         }
 
     } catch (err){
-
         console.log("Usuario nao econtrado: "+ err)
     }
 
@@ -75,13 +71,11 @@ Router.put('/usuarios/update/:idUser', async (req, res)=>{
              res.send("Documento atualizado")
 
          }else{
-
             res.statusCode = 404
             res.send({error: "Documento nao existe"})
          }
          
     } catch (error) {
-
          console.log("Usuario nao atualizado "+error)
     }
  

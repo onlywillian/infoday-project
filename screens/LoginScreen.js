@@ -11,9 +11,9 @@ export default function InvenctoryScreen() {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                name: value,
-            })
+            body: {
+                name: "Gabrs"
+            }
         });
     }
 

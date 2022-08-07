@@ -11,14 +11,16 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
 app.use((req, res, next) => {
-	//Qual site tem permissão de realizar a conexão, no exemplo abaixo está o "*" indicando que qualquer site pode fazer a conexão
-    res.header("Access-Control-Allow-Origin", "*");
-	//Quais são os métodos que a conexão pode realizar na API
-    res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, X-Api-Key')
+    res.setHeader('Content-Type', 'application/json')
     app.use(cors());
     
     next();
 })
+
+
 
 //create
 app.use('/', routerUser)
@@ -30,6 +32,8 @@ app.use('/', routerUser)
 app.use('/', routerUser)
 
 //quiz data
+app.use('/quiz', Router)
+
 app.use('/quiz', Router)
 
 app.listen(3001, ()=>{
