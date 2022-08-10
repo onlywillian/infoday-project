@@ -3,7 +3,6 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const  {db, data} = require('./database/dataUser.js')
-const Port = process.env.PORT || 3001
 
 const routerUser = require('./routers/user')
 const Router = require('./routers/quiz')
@@ -37,6 +36,6 @@ app.use('/quiz', Router)
 
 app.use('/quiz', Router)
 
-app.listen(Port, ()=>{
+app.listen(process.env.PORT || 3001, ()=>{
     console.log("CONEXAO ESTABELECIDA")
 })
