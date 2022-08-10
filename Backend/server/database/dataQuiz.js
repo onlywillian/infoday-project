@@ -11,7 +11,8 @@ const QuestionRes = [
             c: "Desenvolvimento Web",
             d: "Linguagem de marcação"
         },
-        response: "d"
+        response: "d",
+        value: 100
     },
     {
         index: 2,
@@ -22,7 +23,8 @@ const QuestionRes = [
             c: "Desenvolvimento Web",
             d: "Estilização"
         },
-        response: "d"
+        response: "d",
+        value: 100
     },
     {
         index: 3,
@@ -31,9 +33,10 @@ const QuestionRes = [
             a: "Deixar sites dinâmicos",
             b: "Estruturar sites",
             c: "Estilizar sites",
-            d: "Estilizar botões"
+            d: "Estilizar botões",
         },
         response: "a",
+        value: 100
     },
     {
         index: 4,
@@ -45,6 +48,7 @@ const QuestionRes = [
             d: "Steve Jobs"
         },
         response: "d",
+        value: 100
     },
     {
         index: 5,
@@ -55,7 +59,8 @@ const QuestionRes = [
             c: "Mark zuckenberg",
             d: "João Pedro Brito Sousa"
         },
-        response: "a"
+        response: "a",
+        value: 100
     },
     {
         index: 6,
@@ -66,7 +71,8 @@ const QuestionRes = [
             c: "Processa dados rápidos ",
             d: "Armazenar dados"
         },
-        response: "a"
+        response: "a",
+        value: 100
     },
     {
         index: 7,
@@ -77,7 +83,8 @@ const QuestionRes = [
             c: "Mozila Firefox",
             d: "Linux Mint"
         },
-        response: "c"
+        response: "c",
+        value: 100
     },
     {
         index: 8,
@@ -88,7 +95,8 @@ const QuestionRes = [
             c: "Brave",
             d: "Visual Studio"
         },
-        response: "b"
+        response: "b",
+        value: 100
     },
 
     {
@@ -100,7 +108,8 @@ const QuestionRes = [
             c: "Processa dados rápidos",
             d: "Armazenar dados"
         },
-        response: "d"
+        response: "d",
+        value: 100
     },
     {
         index: 10,
@@ -111,7 +120,8 @@ const QuestionRes = [
             c: 'UM POUCO',
             d: 'NEUTRO'
         },
-        response: "a"
+        response: "a",
+        value: 100
     }
 ]
 

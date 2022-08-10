@@ -7,7 +7,6 @@ Router.post('/usuarios',  async (req, res)=>{
     data.nome = nome
     
     try {
-        
         const ValidName = await db.where("nome", "==",nome).get()
         if(ValidName.empty){   
             db.add(data).then(()=>{ 
