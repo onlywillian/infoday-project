@@ -90,7 +90,9 @@ Router.put('/usuarios/update/:idUser', async (req, res)=>{
             const id = docs.id
             db.doc(`${id}`).set(data, {merge:true})
         })
+
         res.status(200).send({message: "ok"})
+        console.log("Post com sucesso")
 
     } catch (error) {
         res.send({error: error})
