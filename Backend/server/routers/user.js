@@ -11,7 +11,7 @@ Router.post('/usuarios',  async (req, res)=>{
         if(ValidName.empty){   
             db.add(data).then(()=>{ 
                 res.statusCode = 201
-                res.send("Document Criado")
+                res.send({message: 'Documento criado'})
                 
                 console.log("documento criado")
             })
@@ -21,7 +21,7 @@ Router.post('/usuarios',  async (req, res)=>{
 
         }else{
             res.statusCode = 200
-            res.send("Usuario ja existe")
+            res.send({message: "Usuario ja existe"})
             console.log("DOCUMENTO JA EXISTE")
         }
 
@@ -44,7 +44,7 @@ Router.get('/usuarios/:user', async (req, res)=>{
             })       
         }else{
             res.statusCode = 404
-            res.send("Documento inxistente")
+            res.send({message: 'Docmuento nao existe'})
         }
 
     } catch (err){
@@ -67,7 +67,7 @@ Router.put('/usuarios/update/:idUser', async (req, res)=>{
  
          if(!searchUser.empty){
              res.statusCode = 200
-             res.send("Documento atualizado")
+             res.send({message: "Documento atualizado"})
 
          }else{
             res.statusCode = 404
@@ -92,7 +92,7 @@ Router.put('/usuarios/update/:idUser', async (req, res)=>{
         })
 
         res.status(200).send({message: "ok"})
-        console.log("Post com sucesso")
+        console.log({message:"Post com sucesso"})
 
     } catch (error) {
         res.send({error: error})
