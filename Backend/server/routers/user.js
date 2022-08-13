@@ -80,5 +80,30 @@ Router.put('/usuarios/update/:idUser', async (req, res)=>{
  
  })
 
+ Router.post('/skin/:id', async(req, res)=>{
+    const data = req.body
+    const nome = req.params.id
+
+    try {
+        const setSkin = await db.where('nome','==',nome).get()
+        setSkin.forEach((docs)=>{
+            const id = docs.id
+            db.doc(`${id}`).set(data, {merge:true})
+        })
+        res.status(200).send({message: "ok"})
+
+    } catch (error) {
+        res.send({error: error})
+        console.log("Algo deu errado: "+error)
+    }
+ })
 
 module.exports = Router
+
+
+
+
+
+
+
+
