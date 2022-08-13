@@ -3,7 +3,7 @@ const db = require('../../conection/conection.js')
 
 const QuestionRes = [
     {
-        index: 1, 
+        index: 0, 
         question: "HTML é uma linguagem de: ",
         item: {
             a: "Certificação",
@@ -15,7 +15,7 @@ const QuestionRes = [
         value: 100
     },
     {
-        index: 2,
+        index: 1,
         question: "CSS tem como principal função em um site:",
         item: {
             a: "Estrutura",
@@ -27,7 +27,7 @@ const QuestionRes = [
         value: 100
     },
     {
-        index: 3,
+        index: 2,
         question: "A linguagem JAVASCRIPT pode ter várias funções dentro de um site, como:",
         item: {
             a: "Deixar sites dinâmicos",
@@ -39,7 +39,7 @@ const QuestionRes = [
         value: 100
     },
     {
-        index: 4,
+        index: 3,
         question: "O inventor da apple se chama:",
         item: {
             a: "Bill Gates",
@@ -51,7 +51,7 @@ const QuestionRes = [
         value: 100
     },
     {
-        index: 5,
+        index: 4,
         question: "Qual o nome do invetor da Microsoft?",
         item: {
             a: "Bill Gates",
@@ -63,7 +63,7 @@ const QuestionRes = [
         value: 100
     },
     {
-        index: 6,
+        index: 5,
         question: "Para que serve o cooler dentro de um computador?",
         item: {
             a: "Evitar aquecimento das peças ",
@@ -75,7 +75,7 @@ const QuestionRes = [
         value: 100
     },
     {
-        index: 7,
+        index: 6,
         question: "Qual dos seguintes nomes são navegadores web?",
         item: {
             a: "Windows",
@@ -87,7 +87,7 @@ const QuestionRes = [
         value: 100
     },
     {
-        index: 8,
+        index: 7,
         question: "Qual dos seguintes nomes é um sistema operacional:",
         item: {
             a: "Google Chrome",
@@ -100,7 +100,7 @@ const QuestionRes = [
     },
 
     {
-        index: 9,
+        index: 8,
         question: "Qual a função de um HD?",
         item: {
             a: "Armazenar memórias RAM",
@@ -112,7 +112,7 @@ const QuestionRes = [
         value: 100
     },
     {
-        index: 10,
+        index: 9,
         question: "Você gostou do jogo?",
         item: {
             a: "SIM",
