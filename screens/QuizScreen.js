@@ -8,12 +8,15 @@ export default function MainScreen() {
 
   const [questoes, setQuetoes] = useState([]);
 
-  useEffect(async () => {
-    let response = await fetch('http://localhost:3001/quiz/question')
-    let userData = await response.json();
+  useEffect(() => {
+    async function fetchData() {
+      let response = await fetch('https://infoday-project.herokuapp.com/quiz/question')
+      let userData = await response.json();
 
-    console.log(userData);
-    return setQuetoes(userData);
+      console.log(userData);
+      return setQuetoes(userData);
+    }
+    fetchData();
   }, []);
 
   const handleItemClick = itemDeResposta => {
@@ -51,7 +54,7 @@ export default function MainScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.enunciado}>
-        <Text>{questoes.length != 0 ? questoes[arr[index]].question : 'Enunciado'}</Text>
+        <Text>{questoes.length != 0 ? questoes[arr[index]].question : 'Carregando Pergunta...'}</Text>
       </View>
 
       <TouchableOpacity style={respondido && questoes[index].response == "a" ? styles.correct : styles.item} onPress={() => handleItemClick("a")}>
@@ -73,20 +76,30 @@ export default function MainScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
+    padding: 20,
   },
   enunciado: {
     flex: 1,
-    borderWidth: 1,
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 20,
   },
   item: {
     flex: 1,
-    borderWidth: 1,
+    marginTop: 10,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 5,
+    justifyContent: 'center'
   },
   correct: {
     flex: 1,
-    borderWidth: 1,
     backgroundColor: 'green',
+    marginTop: 10,
+    borderRadius: 20,
+    padding: 5,
+    justifyContent: 'center'
   }
 });

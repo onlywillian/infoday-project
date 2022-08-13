@@ -18,7 +18,6 @@ export default function App() {
         <Stack.Screen name='Login' component={LoginScreen} options={{ headerShown: false, statusBarStyle: 'dark' }}/>
         <Stack.Screen name='Home' component={MainScreen} options={{ headerShown: false, statusBarStyle: 'dark' }}/>
         <Stack.Screen name='Inventory' component={InventoryScreen} options={{ headerShown: false, statusBarStyle: 'dark' }}/>
-        <Stack.Screen name='Shop' component={ShopScreen} options={{ headerShown: false, statusBarStyle: 'dark' }}/>
         <Stack.Screen name='Transfer' component={TransferScreen} options={{ headerShown: false, statusBarStyle: 'dark' }}/>
         <Stack.Screen name='Game' component={GameScreen} options={{ headerShown: false, statusBarStyle: 'dark' }}/>
         <Stack.Screen name='Quiz' component={QuizScreen} options={{ headerShown: false, statusBarStyle: 'dark' }}/>

@@ -7,7 +7,6 @@ import TopIconView from '../components/TopIconView';
 export default function MainScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <TopIconView navigation={ navigation }/>
       <SpriteView />
       <FooterView navigation={ navigation }/>
     </View>
