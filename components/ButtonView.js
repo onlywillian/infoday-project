@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     image: {
-        width: 30,
-        height: 30,
+        width: '100%',
+        height: '100%',
+        borderRadius: 10
     }
 });

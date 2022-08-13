@@ -26,15 +26,13 @@ var isSpawnEnemy = false,
     isMovingEnemy = false,
     isFiring = false,
     isEnemyPassed = false,
-    isGameOver = false;
+    isGameOver = false,
+    flag = false;
 
 var speedEnemyValue = 5;
 var speedBulletValue = 20;
 
 var lifes = 3;
-
-var bullets = [],
-    enemys = [];
 
 // Events activation
 
@@ -94,8 +92,6 @@ const handleEnemiesSpawn = entities => {
             color: 'orange',
             renderer: props => Enemy(props.body.position.x, props.body.position.y, props.size[0], props.size[1], props.color)
         }
-
-        enemys.push(entities[entitiesIds]);
     }
 
     return entities;
@@ -128,8 +124,6 @@ const handleNaveShoot = entities => {
             color: 'black',
             renderer: props => Bullet(props.body.position.x, props.body.position.y, props.size[0], props.size[1], props.color)
         }
-
-        bullets.push(entities[entitiesIds]);
     }
     
     isFiring = false;
@@ -141,16 +135,24 @@ const handleCollisions = entities => {
     // Collisions config
     let allEntities = Object.keys(entities);
     let player = entities.nave.body;
+    let newEntities = [entities.nave];
+
+    let bullets = [],
+        enemys = [];
 
     allEntities.forEach(e => {
+        if (entities[e].body.label == 'bullet') {
+            bullets.push(entities[e]);
+        }
         if (entities[e].body.label == 'enemy') {
+            enemys.push(entities[e]);
+
             if (player.position.x < entities[e].body.position.x + boxSize &&
                 player.position.x + boxSize > entities[e].body.position.x &&
                 player.position.y < entities[e].body.position.y + boxSize &&
                 player.position.y + boxSize > entities[e].body.position.y) {
                     delete entities[e];
             }
-
         }
     });
 
@@ -158,19 +160,25 @@ const handleCollisions = entities => {
     if (bullets.length != 0 && enemys.length != 0) {
         for (let i = 0; i < bullets.length; i++) {
             for (let j = 0; j < enemys.length; j++) {
-                console.log(j);
                 if (bullets[i].body.position.x < enemys[j].body.position.x + boxSize &&
                     bullets[i].body.position.x + boxSize > enemys[j].body.position.x &&
                     bullets[i].body.position.y < enemys[j].body.position.y + boxSize &&
                     bullets[i].body.position.y + boxSize > enemys[j].body.position.y) {
                         delete bullets[i];
                         delete enemys[j];
+
+                        console.log('colisão');
                         
                         return entities;
                 }
             }
         }
     }
+
+    newEntities = 
+    
+    bullets = [];
+    enemys = [];
 
     return entities;
 }

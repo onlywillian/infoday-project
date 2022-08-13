@@ -2,9 +2,12 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import Button from './ButtonView';
 
+import InvectoryIcon from '../assets/icons/BOTAO_INVENTARIO.png';
+import GameIcon from '../assets/icons/ICONE_PAGINA_JOGOS.png';
+
 export default function FooterView({ navigation }) {
     const handleShopIconClick = () => {
-        return navigation.navigate('Shop');
+        return navigation.navigate('Inventory');
     }
 
     const handleTranferIconClick = () => {
@@ -13,7 +16,7 @@ export default function FooterView({ navigation }) {
 
     return (
         <View style={styles.footer}>
-            <Button iconName='sports-esports' press={handleTranferIconClick}/>
+            <Button image={GameIcon} press={handleTranferIconClick}/>
 
             <View style={
                 {
@@ -28,7 +31,7 @@ export default function FooterView({ navigation }) {
                 <Text style={{color: 'white'}}>Nome</Text>
             </View>
 
-            <Button iconName='shopping-cart' press={handleShopIconClick}/>
+            <Button image={InvectoryIcon} press={handleShopIconClick}/>
         </View>
     )
 };

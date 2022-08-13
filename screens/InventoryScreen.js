@@ -1,7 +1,8 @@
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Image } from 'react-native';
 
 import Button from '../components/ButtonView';
 import backIcon from '../assets/icons/back.png';
+import coinIcon from '../assets/icons/MOEDA.png';
 
 export default function InvenctoryScreen({ navigation }) {
     const handleBackIconClick = () => {
@@ -10,26 +11,28 @@ export default function InvenctoryScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <View style={{ flex: 1,flexDirection: 'row' }}>
-                <View style={styles.icons}>
-                    <Button image={backIcon} press={handleBackIconClick}/>
-                    <Button iconName={'back'}/>
-                    <Button iconName={'back'}/>
-                </View>
-
-                <View style={styles.spritePlayer}>
-                    <Text>Player Sprite</Text>
-                </View>
-
-                <View style={styles.icons}>
-                    <Button iconName={'back'}/>
-                    <Button iconName={'back'}/>
-                    <Button iconName={'back'}/>
+            <View style={styles.icons}>
+                <Button image={backIcon} press={handleBackIconClick}/>
+                <View style={{ flexDirection: 'row' }}>
+                    <Image source={coinIcon} style={{ height: 50, width: 50 }}/>
+                    <Text style={{ fontSize: 20, marginLeft: 10 }}>x00</Text>
                 </View>
             </View>
 
+            <View style={styles.skinName}>
+                <Text style={{ color: 'white' }}>Player Sprite</Text>
+            </View>
+
             <View style={styles.itensArea}>
-                <Text>Itens Space</Text>
+                <Button />
+                <View>
+                    <Text>Itens Space</Text>
+                </View>
+                <Button />
+            </View>
+
+            <View style={styles.selectOrPay}>
+                <Text style={{ color: 'white' }}>Player Sprite</Text>
             </View>
         </View>
     )
@@ -39,24 +42,40 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         height: '100%',
+        alignItems: 'center'
     },
     icons: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-around'
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        width: '80%'
     },
-    spritePlayer: {
-        flex: 2,
+    skinName: {
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'black',
+        width: '80%',
+        borderRadius: 20,
     },
     itensArea: {
-        flex: 1,
+        flex: 5,
+        flexDirection: 'row',
+        width: '100%',
         margin: 30,
         borderColor: 'black',
         borderStyle: 'solid',
-        borderWidth: 5,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'space-around'
+    },
+    selectOrPay: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'black',
+        width: '80%',
+        borderRadius: 20,
+        marginBottom: 10
     }
 });
