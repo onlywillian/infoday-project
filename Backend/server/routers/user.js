@@ -44,7 +44,7 @@ Router.get('/usuarios/:user', async (req, res)=>{
             })       
         }else{
             res.statusCode = 404
-            res.send({message: 'Docmuento nao existe'})
+            res.send({message: 'Documento nao existe'})
         }
 
     } catch (err){
