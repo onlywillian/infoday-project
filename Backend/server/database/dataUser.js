@@ -3,7 +3,7 @@ const db = bd.collection("Usuarios")
 
 const data = {
     nome: "",
-    money: null,
+    money: 0,
     SkinBaseFemea: {
         nome: 'Nina'
     },
