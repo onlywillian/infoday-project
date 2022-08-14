@@ -9,7 +9,8 @@ const data = {
     },
     SkinBaseMacho: {
         nome: 'Jorginho'
-    }
+    },
+    FinishedQuiz: false
 }
 
 module.exports = {db, data}
