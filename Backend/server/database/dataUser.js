@@ -10,7 +10,7 @@ const data = {
     SkinBaseMacho: {
         nome: 'Jorginho'
     },
-    SkinAtual: 'Jorginho',
+    SkinAtual: 0,
     FinishedQuiz: false
 }
 
