@@ -3,29 +3,15 @@ const db = bd.collection("Usuarios")
 
 const data = {
     nome: "",
-    money: null,
-    roupas: {
-        calca: {
-            nome: '',
-            money: null
-        },
-        chapeu: {
-            nome: '',
-            money: null
-        },
-        tenis: {
-            nome: '',
-            money: null
-        },
-        blusa: {
-            nome: '',
-            money: null
-        }
+    money: 0,
+    SkinBaseFemea: {
+        nome: 'Nina'
     },
-    respostas: {
-        item: '',
-        money: null
-    }
+    SkinBaseMacho: {
+        nome: 'Jorginho'
+    },
+    SkinAtual: 0,
+    FinishedQuiz: false
 }
 
 module.exports = {db, data}
