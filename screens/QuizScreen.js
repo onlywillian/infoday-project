@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-export default function MainScreen() {
-  const [index, setIndex] = useState(0);
+export default function QuizScreen({ route, navigation }) {
+  const { money, nameUser } = route.params;
+  const [userMoney, setUserMoney] = useState(money);
+
+  const [i, setIndex] = useState(0);
   const [respondido, setRespondido] = useState(false);
-  const arr = [0, 2, 3, 4, 5, 6, 7, 8, 9, 1];
 
   const [questoes, setQuetoes] = useState([]);
 
@@ -13,6 +15,17 @@ export default function MainScreen() {
       let response = await fetch('https://infoday-project.herokuapp.com/quiz/question')
       let userData = await response.json();
 
+      userData.sort(function (a, b) {
+        if (a.index > b.index) {
+          return 1;
+        }
+        if (a.index < b.index) {
+          return -1;
+        }
+        // a must be equal to b
+        return 0;
+      });
+
       console.log(userData);
       return setQuetoes(userData);
     }
@@ -20,29 +33,32 @@ export default function MainScreen() {
   }, []);
 
   const handleItemClick = itemDeResposta => {
+    if (itemDeResposta == questoes[i].response) {
+      let newMoney = userMoney + 100;
+
+      setUserMoney(newMoney);
+    }
+
     setRespondido(true);
 
     let newIndex;
 
-    if (index < questoes.length - 1) {
-      newIndex = index + 1;
+    if (i < questoes.length - 1) {
+      newIndex = i + 1;
     } else {
-      return;
-    }
+      async function putData() {
+        let data = await fetch(`https://infoday-project.herokuapp.com/usuarios/update/${nameUser}`, {
+            method:'PUT',
+            headers: new Headers({'content-type': 'application/json'}),
+            body:JSON.stringify({
+                money: userMoney,
+                FinishedQuiz: true,
+            }),
+        })
+      }
+      putData()
 
-    setTimeout(() => {
-      setIndex(newIndex);
-      setRespondido(false);
-    }, 1000);
-  }
-
-  const handleNextbuttonClick = () => {
-    let newIndex;
-
-    if (index < questoes.length - 1) {
-      newIndex = index + 1;
-    } else {
-      return;
+      return navigation.goBack();
     }
 
     setTimeout(() => {
@@ -54,20 +70,20 @@ export default function MainScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.enunciado}>
-        <Text>{questoes.length != 0 ? questoes[arr[index]].question : 'Carregando Pergunta...'}</Text>
+        <Text>{questoes.length != 0 ? questoes[i].question : 'Carregando Perguntas...'}</Text>
       </View>
 
-      <TouchableOpacity style={respondido && questoes[index].response == "a" ? styles.correct : styles.item} onPress={() => handleItemClick("a")}>
-        <Text>{questoes.length != 0 ? questoes[arr[index]].item.a : 'a'}</Text>
+      <TouchableOpacity style={respondido && questoes[i].response == "a" ? styles.correct : styles.item} onPress={() => handleItemClick("a")}>
+        <Text>{questoes.length != 0 ? questoes[i].item.a : 'a'}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={respondido && questoes[index].response == "b" ? styles.correct : styles.item} onPress={() => handleItemClick("b")}>
-        <Text>{questoes.length != 0 ? questoes[arr[index]].item.b : 'a'}</Text>
+      <TouchableOpacity style={respondido && questoes[i].response == "b" ? styles.correct : styles.item} onPress={() => handleItemClick("b")}>
+        <Text>{questoes.length != 0 ? questoes[i].item.b : 'b'}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={respondido && questoes[index].response == "c" ? styles.correct : styles.item} onPress={() => handleItemClick("c")}>
-        <Text>{questoes.length != 0 ? questoes[arr[index]].item.c : 'a'}</Text>
+      <TouchableOpacity style={respondido && questoes[i].response == "c" ? styles.correct : styles.item} onPress={() => handleItemClick("c")}>
+        <Text>{questoes.length != 0 ? questoes[i].item.c : 'c'}</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={respondido && questoes[index].response == "d" ? styles.correct : styles.item} onPress={() => handleItemClick("d")}>
-        <Text>{questoes.length != 0 ? questoes[arr[index]].item.d : 'a'}</Text>
+      <TouchableOpacity style={respondido && questoes[i].response == "d" ? styles.correct : styles.item} onPress={() => handleItemClick("d")}>
+        <Text>{questoes.length != 0 ? questoes[i].item.d : 'd'}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -76,7 +92,7 @@ export default function MainScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: '#cdd4ff',
     padding: 20,
   },
   enunciado: {
@@ -100,6 +116,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 20,
     padding: 5,
-    justifyContent: 'center'
+    justifyContent: 'center',
   }
 });

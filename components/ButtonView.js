@@ -16,7 +16,7 @@ export default function FooterView({ iconName, press, image }) {
 
 const styles = StyleSheet.create({
     background: {
-        backgroundColor: 'black',
+        backgroundColor: '#5672a4',
         width: 50,
         height: 50,
         borderRadius: 10,

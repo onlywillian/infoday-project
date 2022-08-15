@@ -1,20 +1,39 @@
 import { useState } from 'react';
-import { SafeAreaView, StyleSheet, TextInput, Button, View, Text, Image } from 'react-native';
+import { SafeAreaView, StyleSheet, TextInput, Button, View, Text, Alert} from 'react-native';
 
-export default function InvenctoryScreen() {
-    const [ value, setValue ] = useState('');
+export default function InvenctoryScreen({ navigation }) {
+    const [value, setValue] = useState('');
 
     const handleButtonClick = () => {
-        fetch('http://10.0.0.8:3001/usuarios', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: {
-                name: "Gabrs"
-            }
-        });
+        if (value == '') return Alert.alert('Campo de nome em branco', 'Por favor insira um nome válido');
+
+        async function postData() {
+            let data = await fetch("https://infoday-project.herokuapp.com/usuarios", {
+                method:'POST',
+                headers: new Headers({'content-type': 'application/json'}),
+                body:JSON.stringify({
+                    name: value
+                }),
+            })
+
+            return getData();
+        }
+        
+        async function getData() {
+            let res = await fetch(`https://infoday-project.herokuapp.com/usuarios/${value}`);
+            let data = await res.json();
+
+            console.log(data);
+
+            if (data.message == 'Documento nao existe') return postData();
+
+            navigation.navigate('Home', {
+                nameUser: data.nome,
+                money: data.money,
+                skinAtual: data.SkinAtual,
+            });
+        }
+        getData();
     }
 
     return (

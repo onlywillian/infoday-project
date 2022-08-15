@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "InfoApp",
+    "name": "BobApp",
     "slug": "InfoApp",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -18,13 +18,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bobinterprise.bobapp"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+      "package": "com.bobinterprise.bobapp",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"

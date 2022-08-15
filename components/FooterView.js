@@ -5,13 +5,22 @@ import Button from './ButtonView';
 import InvectoryIcon from '../assets/icons/BOTAO_INVENTARIO.png';
 import GameIcon from '../assets/icons/ICONE_PAGINA_JOGOS.png';
 
-export default function FooterView({ navigation }) {
+export default function FooterView({ route, navigation }) {
+    const { nameUser, money, skinAtual } = route.params;
+
     const handleShopIconClick = () => {
-        return navigation.navigate('Inventory');
+        return navigation.navigate('Inventory', {
+            nameUser: nameUser,
+            money: money,
+            skinAtual: skinAtual
+        });
     }
 
     const handleTranferIconClick = () => {
-        return navigation.navigate('Transfer');
+        return navigation.navigate('Transfer', {
+            money: money,
+            nameUser: nameUser
+        });;
     }
 
     return (
@@ -21,14 +30,14 @@ export default function FooterView({ navigation }) {
             <View style={
                 {
                     width: '50%', 
-                    backgroundColor: 'black', 
+                    backgroundColor: '#5672a4', 
                     height: 50,
                     borderRadius: 10,
                     alignItems: 'center',
                     justifyContent: 'center'
                 }
                 }>
-                <Text style={{color: 'white'}}>Nome</Text>
+                <Text style={{color: 'white'}}>{nameUser}</Text>
             </View>
 
             <Button image={InvectoryIcon} press={handleShopIconClick}/>
