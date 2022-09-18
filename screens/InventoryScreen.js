@@ -8,8 +8,16 @@ import coinIcon from '../assets/icons/MOEDA.png';
 import JorginhoSkin from '../assets/player_skins/jorginho_grande.gif';
 import NinaSkin from '../assets/player_skins/NINA_GRANDE.gif';
 import JPSkin from '../assets/player_skins/jp_grande.gif';
-import JoberSkin from '../assets/player_skins/jober_melo_pinto.gif'
-import BobSkin from '../assets/player_skins/fantasia_bob-export-grande.gif'
+import JoberSkin from '../assets/player_skins/jober_melo_pinto.gif';
+import BobSkin from '../assets/player_skins/fantasia_bob-export-grande.gif';
+import AlienVerSkin from '../assets/player_skins/alien_inimigo_vermelho-export.gif';
+import AlienSkin from '../assets/player_skins/alien_inimigo-export.gif';
+import DemonSkin from '../assets/player_skins/1_inimigo_grande.gif';
+import FrogSkin from '../assets/player_skins/respitarion.gif';
+
+import nextbt from '../assets/icons/next.png';
+import backbt from '../assets/icons/return.png';
+
 
 export default function InvenctoryScreen({ route, navigation }) {
     var [index, setindex] = useState(0);
@@ -34,12 +42,32 @@ export default function InvenctoryScreen({ route, navigation }) {
         },
         {
             skinName: 'João Pedro',
-            price: 1000,
+            price: 900,
             url: JPSkin,
         },
         {
             skinName: 'Jober Melo',
-            price: 1000,
+            price: 900,
+            url: JoberSkin,
+        },
+        {
+            skinName: 'Alien Vermelho',
+            price: 100,
+            url: AlienVerSkin,
+        },
+        {
+            skinName: 'Alien',
+            price: 100,
+            url: AlienSkin,
+        },
+        {
+            skinName: 'Demon',
+            price: 100,
+            url: DemonSkin,
+        },
+        {
+            skinName: 'Frog',
+            price: 100,
             url: JoberSkin,
         },
     ]
@@ -130,13 +158,13 @@ export default function InvenctoryScreen({ route, navigation }) {
 
             <View style={styles.itensArea}>
                 <TouchableOpacity style={styles.backAndNextButtons} onPress={handleBackButtonClick}>
-                    <Text style={{fontSize: 20, color: 'white'}}>{'<--'}</Text>
+                    <Image source={backbt} style={styles.backAndNextButtons}/>
                 </TouchableOpacity>
 
                 <Image source={info[index].url} style={{ height: '70%', width: '70%' }}/>
 
                 <TouchableOpacity style={styles.backAndNextButtons} onPress={handleNextButtonClick}>
-                    <Text style={{fontSize: 20, color: 'white'}}>{'-->'}</Text>
+                    <Image source={nextbt} style={styles.backAndNextButtons}/>
                 </TouchableOpacity>
             </View>
 
@@ -197,8 +225,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     backAndNextButtons: {
-        backgroundColor: '#5672a4',
-        width: 30, 
+        width: 50, 
         height: 50,
     }
 });

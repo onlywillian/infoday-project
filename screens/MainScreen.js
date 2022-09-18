@@ -9,9 +9,13 @@ import NinaSkin from '../assets/player_skins/NINA_GRANDE.gif';
 import JPSkin from '../assets/player_skins/jp_grande.gif';
 import JoberSkin from '../assets/player_skins/jober_melo_pinto.gif';
 import BobSkin from '../assets/player_skins/fantasia_bob-export-grande.gif';
+import AlienVerSkin from '../assets/player_skins/alien_inimigo_vermelho-export.gif';
+import AlienSkin from '../assets/player_skins/alien_inimigo-export.gif';
+import DemonSkin from '../assets/player_skins/1_inimigo_grande.gif';
+import FrogSkin from '../assets/player_skins/respitarion.gif';
 
 export default function MainScreen({ route, navigation }) {
-  const arr = [JorginhoSkin, NinaSkin, BobSkin, JPSkin, JoberSkin];
+  const arr = [JorginhoSkin, NinaSkin, BobSkin, JPSkin, JoberSkin, AlienVerSkin, AlienSkin, DemonSkin, FrogSkin];
   const [skinIndex, setSkinindex] = useState(0);
   const { nameUser } = route.params;
 
